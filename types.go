@@ -16,6 +16,7 @@ type Database interface {
  * Schema for a single log entry.
  */
 type LogSchema struct {
+	ID          string    `bson:"_id"`
 	TimeWritten time.Time `bson:"time_written"`
 	Message     string    `bson:"message"`
 	Severity    Level     `bson:"severity"`

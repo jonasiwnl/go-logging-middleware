@@ -24,5 +24,5 @@ func main() {
 
 ## TODO
 
-- [ ] IDs for logs into db
+- [x] IDs for logs into db
 - [ ] Add more database drivers

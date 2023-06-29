@@ -19,7 +19,8 @@ func (s sqlWrapper) Write(ctx context.Context, log LogSchema) error {
 
 	_, err := s.database.ExecContext(
 		ctx,
-		"INSERT INTO logs (time_written, message, severity, category) VALUES (?, ?, ?, ?)",
+		"INSERT INTO logs (id, time_written, message, severity, category) VALUES (?, ?, ?, ?, ?)",
+		log.ID,
 		log.TimeWritten,
 		log.Message,
 		log.Severity,

@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/joho/godotenv"
-	"github.com/jonasiwnl/LoggingMiddleware/middleware"
+	m "github.com/jonasiwnl/go-logging-middleware"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -43,10 +43,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	logger := middleware.NewMongoMiddleware(client.Database("LoggingMiddleware").Collection("logs"))
+	logger := m.NewMongoMiddleware(
+		client.Database("LoggingMiddleware").Collection("logs"),
+		true,
+	)
 
 	http.Handle("/", logger.LogRoute(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println("reached handler.")
 		w.Write([]byte("Hello, world!"))
 	})))
 
