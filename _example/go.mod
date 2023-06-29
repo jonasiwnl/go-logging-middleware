@@ -1,12 +1,12 @@
-module github.com/jonasiwnl/qlogger/_example
+module github.com/jonasiwnl/go-logging-middleware/_example
 
 go 1.20
 
-replace github.com/jonasiwnl/qlogger => ../
+replace github.com/jonasiwnl/go-logging-middleware => ../
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/jonasiwnl/qlogger v0.0.0-00010101000000-000000000000
+	github.com/jonasiwnl/go-logging-middleware v0.0.0-00010101000000-000000000000
 	go.mongodb.org/mongo-driver v1.12.0
 )
 

@@ -5,16 +5,16 @@ import (
 	"time"
 )
 
-type QLogger struct {
+type LoggingMiddleware struct {
 	database Database
 }
 
-func NewQLogger(database Database) *QLogger {
-	return &QLogger{database}
+func NewLoggingMiddleware(database Database) *LoggingMiddleware {
+	return &LoggingMiddleware{database}
 }
 
 // LogRoute middleware logs the request to the database.
-func (q QLogger) LogRoute(next http.Handler) http.Handler {
+func (q LoggingMiddleware) LogRoute(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		q.database.Write(r.Context(), LogSchema{
 			TimeWritten: time.Now().UTC(),

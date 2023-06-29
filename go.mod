@@ -1,4 +1,4 @@
-module github.com/jonasiwnl/qlogger
+module github.com/jonasiwnl/go-logging-middleware
 
 go 1.20
 

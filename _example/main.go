@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/joho/godotenv"
-	"github.com/jonasiwnl/qlogger/middleware"
+	"github.com/jonasiwnl/LoggingMiddleware/middleware"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -35,7 +35,7 @@ func main() {
 
 	// Ping database to confirm connection.
 	err = client.
-		Database("qlogger").
+		Database("LoggingMiddleware").
 		RunCommand(context.Background(), bson.D{{Key: "ping", Value: 1}}).
 		Err()
 
@@ -43,7 +43,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	logger := middleware.NewMongoMiddleware(client.Database("qlogger").Collection("logs"))
+	logger := middleware.NewMongoMiddleware(client.Database("LoggingMiddleware").Collection("logs"))
 
 	http.Handle("/", logger.LogRoute(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println("reached handler.")
