@@ -43,10 +43,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	logger := m.NewMongoMiddleware(
-		client.Database("LoggingMiddleware").Collection("logs"),
-		true,
-	)
+	logger := m.NewLoggingMiddlewareBuilder(
+		m.NewMongoDatabase(client.Database("LoggingMiddleware").Collection("logs"))
+	).WithInfoLevel(m.Verbose).Build()
 
 	http.Handle("/", logger.LogRoute(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, world!"))

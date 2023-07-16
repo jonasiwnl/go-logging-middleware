@@ -18,23 +18,22 @@ type Database interface {
 type LogSchema struct {
 	ID          string    `bson:"_id"`
 	TimeWritten time.Time `bson:"time_written"`
-	Message     string    `bson:"message"`
-	Severity    Level     `bson:"severity"`
 	Category    string    `bson:"category"`
+	Info        string    `bson:"info"`
 }
 
 /*
- * Simple alias for readability.
- * 0 - INFO
- * 1 - DEBUG
- * 2 - WARN
- * 3 - ERROR
+ * Noisiness level for the logger.
  */
-type Level int
+type InfoLevel int
 
 const (
-	INFO Level = iota
-	DEBUG
-	WARN
-	ERROR
+	// Just logs route hits.
+	Minimal InfoLevel = iota
+
+	// Logs body.
+	Normal
+
+	// Logs headers, body, and other information.
+	Verbose
 )
