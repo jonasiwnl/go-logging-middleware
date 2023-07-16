@@ -13,7 +13,9 @@ import (
 )
 
 func main() {
-    logger := glm.NewLoggingMiddleware(glm.NewMongoDatabase("YOUR MONGO COLLECTION"))
+    logger := glm.NewLoggingMiddlewareBuilder(
+		glm.NewMongoDatabase(client.Database("LoggingMiddleware").Collection("logs"))).
+		WithInfoLevel(glm.Verbose).Build()
 
     http.Handle("/", logger.LogRoute(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf(w, "Hello, world!")
@@ -25,4 +27,4 @@ func main() {
 ## TODO
 
 - [x] IDs for logs into db
-- [ ] Add more database drivers
+- [ ] Add tests
